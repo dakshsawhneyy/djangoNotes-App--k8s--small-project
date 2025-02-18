@@ -2,7 +2,7 @@ kind: Deployment
 apiVersion: apps/v1
 metadata:
   name: notes-app-deployment
-  namespace: notes-app
+  namespace: nginx
   # label for deployment used in services
   labels: 
     app: notes-app
@@ -22,4 +22,11 @@ spec:
         image: dakshsawhneyy/notes-app-k8s
         ports:
         - containerPort: 8000
-
+        livenessProbe:
+          httpGet: 
+            path: /
+            port: 8000
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 8000
